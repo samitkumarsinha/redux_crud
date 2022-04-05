@@ -1,0 +1,14 @@
+<div>
+  <form [formGroup]="regform" (ngSubmit)="updateUser(regform.value)">
+    <p>id : <input readonly size="25" formControlName="id"></p>
+    <p>username : <input formControlName="username"></p>
+    <p>password : <input formControlName="password"></p>
+    <p>email : <input formControlName="email"></p>
+    <p><button type="submit" [disabled]="!regform.valid">submit</button></p>
+  </form>
+</div>
+<div *ngFor="let item of users">
+  {{item.email}} <span (click)="deluser(item._id)">&times;</span>
+  <span (click)="edituser(item)">Edit</span>
+</div>
+

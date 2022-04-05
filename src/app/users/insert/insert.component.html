@@ -1,0 +1,7 @@
+<form [formGroup]="regform" (ngSubmit)="addUser(regform.value)">
+  <p>username : <input formControlName="username"></p>
+  <p>password : <input formControlName="password"></p>
+  <p>email : <input formControlName="email"></p>
+  <p><button type="submit" [disabled]="!regform.valid">submit</button></p>
+</form>
+
