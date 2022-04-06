@@ -1,9 +1,10 @@
+import { Token } from './../../user';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Subscription } from 'rxjs';
 import { UserListRequestAction, UserListSuccessAction } from '../actions/user-action';
-import { getUserLoaded, getUserLoading, getUsers, RootReducerState } from '../reducers';
+import { getUserLoaded, getUserLoading, getUsers, RootReducerState, getToken } from '../reducers';
 import { User } from '../../user';
 import { USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_ADD, USER_DELETE, USER_UPDATE } from '../actions/user-action';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -17,6 +18,7 @@ export class ListComponent implements OnInit {
   users: any[] = [];
   subscribtion: Subscription | undefined;
   regform;
+  token!: Token;
   constructor(private ds: DataService, private fb: FormBuilder, private store: Store<RootReducerState>) {
     this.regform = this.fb.group({
       id: ['', Validators.required],
@@ -51,6 +53,7 @@ export class ListComponent implements OnInit {
     const loading$ = this.store.select(getUserLoading);
     const loaded$ = this.store.select(getUserLoaded);
     const getUserData = this.store.select(getUsers);
+    const getTokenData = this.store.select(getToken);
     combineLatest([loading$, loaded$]).subscribe(data => {
       // loaded$.subscribe(x => console.log(x))
       if(!data[0] && !data[1]){
@@ -63,6 +66,10 @@ export class ListComponent implements OnInit {
       }else{
         getUserData.subscribe(item => {
           this.users = item;
+        });
+        getTokenData.subscribe(item => {
+          this.token = item;
+          console.log(this.token)
         })
       }
     });

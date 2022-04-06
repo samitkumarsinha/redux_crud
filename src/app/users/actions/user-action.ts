@@ -1,3 +1,4 @@
+import { Token } from './../../user';
 import {User} from '../../user';
 
 export const USER_LIST_REQUEST = 'user list request';
@@ -6,6 +7,8 @@ export const USER_DELETE = 'user delete';
 export const USER_UPDATE = 'user update';
 export const USER_ADD = 'user add';
 export const USER_LIST_ERROR = 'user list error';
+export const TOKEN_ADD = 'user token';
+
 
 export class UserListRequestAction {
   readonly type = USER_LIST_REQUEST;
@@ -28,7 +31,11 @@ export class UserAddAction {
   constructor(public payload?: { data: User }) {
   }
 }
-
+export class TokenAddAction {
+  readonly type = TOKEN_ADD;
+  constructor(public payload?: { token: Token }) {
+  }
+}
 // export class UserListErrorAction {
 //   readonly type = USER_LIST_ERROR;
 // }
